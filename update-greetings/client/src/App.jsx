@@ -32,7 +32,8 @@ const App = () => {
 
 
   const greetMe = async () => {
-    const greetMsg = await greeterContract.methods.greet().call()
+    const greetMsg = await greeterContract.methods.greet().call();
+    setGreetings(greetMsg);
     return greetMsg;
   }
 
@@ -46,15 +47,16 @@ const App = () => {
 
   return (
     <div className="App">
-      <button onClick={() => greetMe()}>
+      <button className='read' onClick={() => greetMe()}>
         Greet me!
       </button>
-      <br />
-      <input placeholder="New greetings" type="text" value={newGreetings} onChange={(e) => setNewGreetings(e.target.value)} />
-      <button onClick={() => updateGreets()}>
-        Update Greetings
-      </button>
-      <h3>Current Greetings: {greetings}</h3>
+      <h2>Current Greetings: <span style={{ color: "blueviolet" }}> {greetings}</span></h2>
+      <div>
+        <input placeholder="New greetings" type="text" value={newGreetings} onChange={(e) => setNewGreetings(e.target.value)} />
+        <button onClick={() => updateGreets()}>
+          Update Greetings
+        </button>
+      </div>
     </div>
   );
 }
