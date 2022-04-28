@@ -24,7 +24,6 @@ const App = () => {
   const [newGreetings, setNewGreetings] = useState("");
   const [greetings, setGreetings] = useState("")
 
-  // console.log(web3)
   useEffect(() => async () => {
     const greetMsg = await greetMe()
     setGreetings(greetMsg);
@@ -32,29 +31,27 @@ const App = () => {
 
 
   const greetMe = async () => {
-    const greetMsg = await greeterContract.methods.greet().call()
+    const greetMsg = await greeterContract.methods.greet().call();
     return greetMsg;
   }
 
   const updateGreets = async () => {
-    // if i want to console log
     const greetMsg = await greeterContract.methods.setGreeting(newGreetings).send({ from: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' })
-    console.log(greetMsg)
     setGreetings(await greetMe())
-    // await greeterContract.methods.setGreeting(newGreetings).send()
   }
 
   return (
     <div className="App">
-      <button onClick={() => greetMe()}>
+      <button className='read' onClick={() => greetMe()}>
         Greet me!
       </button>
-      <br />
-      <input placeholder="New greetings" type="text" value={newGreetings} onChange={(e) => setNewGreetings(e.target.value)} />
-      <button onClick={() => updateGreets()}>
-        Update Greetings
-      </button>
-      <h3>Current Greetings: {greetings}</h3>
+      <h2>Current Greetings: <span style={{ color: "blueviolet" }}> {greetings}</span></h2>
+      <div>
+        <input placeholder="New greetings" type="text" value={newGreetings} onChange={(e) => setNewGreetings(e.target.value)} />
+        <button onClick={() => updateGreets()}>
+          Update Greetings
+        </button>
+      </div>
     </div>
   );
 }
